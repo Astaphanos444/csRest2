@@ -1,0 +1,6 @@
+@csApiRestful304_HostAddress = http://localhost:5135
+
+GET {{csApiRestful304_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
