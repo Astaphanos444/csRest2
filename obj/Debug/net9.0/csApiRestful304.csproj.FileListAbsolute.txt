@@ -166,3 +166,4 @@ C:\Users\chris\Desktop\csApiRestful304\obj\Debug\net9.0\refint\csApiRestful304.d
 C:\Users\chris\Desktop\csApiRestful304\obj\Debug\net9.0\csApiRestful304.pdb
 C:\Users\chris\Desktop\csApiRestful304\obj\Debug\net9.0\csApiRestful304.genruntimeconfig.cache
 C:\Users\chris\Desktop\csApiRestful304\obj\Debug\net9.0\ref\csApiRestful304.dll
+C:\Users\chris\Desktop\csApiRestful304\obj\Debug\net9.0\csApiRestful304.sourcelink.json
