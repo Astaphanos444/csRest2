@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using csApiRestful304.src.Data;
 
@@ -11,9 +12,11 @@ using csApiRestful304.src.Data;
 namespace csApiRestful304.Migrations
 {
     [DbContext(typeof(VideoGameDbContext))]
-    partial class VideoGameDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250430154101_developerRelation")]
+    partial class developerRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace csApiRestful304.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GenreVideoGame", b =>
-                {
-                    b.Property<int>("GenresId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VideoGamesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenresId", "VideoGamesId");
-
-                    b.HasIndex("VideoGamesId");
-
-                    b.ToTable("GenreVideoGame");
-                });
 
             modelBuilder.Entity("csApiRestful304.src.model.Developer", b =>
                 {
@@ -52,23 +40,6 @@ namespace csApiRestful304.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Developer");
-                });
-
-            modelBuilder.Entity("csApiRestful304.src.model.Genre", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("csApiRestful304.src.model.Publisher", b =>
@@ -96,13 +67,13 @@ namespace csApiRestful304.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("DeveloperId")
+                    b.Property<int>("DeveloperId")
                         .HasColumnType("int");
 
                     b.Property<string>("Plataform")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PublisherId")
+                    b.Property<int>("PublisherId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -142,30 +113,19 @@ namespace csApiRestful304.Migrations
                     b.ToTable("VideoGameDetails");
                 });
 
-            modelBuilder.Entity("GenreVideoGame", b =>
-                {
-                    b.HasOne("csApiRestful304.src.model.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("csApiRestful304.src.model.VideoGame", null)
-                        .WithMany()
-                        .HasForeignKey("VideoGamesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("csApiRestful304.src.model.VideoGame", b =>
                 {
                     b.HasOne("csApiRestful304.src.model.Developer", "Developer")
                         .WithMany()
-                        .HasForeignKey("DeveloperId");
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("csApiRestful304.src.model.Publisher", "Publisher")
                         .WithMany()
-                        .HasForeignKey("PublisherId");
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Developer");
 

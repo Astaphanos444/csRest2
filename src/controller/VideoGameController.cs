@@ -23,7 +23,12 @@ namespace csApiRestful304.src.controller
         [HttpGet]
         public async Task<ActionResult<List<VideoGame>>> GetAll()
         {
-            return Ok(await _context.VideoGames.ToListAsync());
+            return Ok(await _context.VideoGames
+                .Include(x => x.VideoGameDetails)
+                .Include(x => x.Developer)
+                .Include(x => x.Publisher)
+                .Include(x => x.Genres)
+                .ToListAsync());
         }
 
         [HttpGet("{id}")]
